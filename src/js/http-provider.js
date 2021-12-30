@@ -56,7 +56,11 @@ const fetchPokemon = async(id) => {
             return movimientos;               
         }  
         
-        
+        const obtenerDescripcion = () => {
+
+            const 
+
+        }
 
         let pokemon = {
             id         : data.id,
@@ -65,11 +69,11 @@ const fetchPokemon = async(id) => {
             tipo       : obtenerTipo(data),
             peso       : data.weight,
             habilidades: obtenerHabilidades(data),
-           /*  informacion: data.#,
-            descripcion: data.#, */
+            /* descripcion: data., */
             movimientos: obtenerMovimientos(data)
         }
         
+
         verPokemon(pokemon);
 
     } catch (err) {
@@ -87,14 +91,7 @@ const verPokemon = (pokemon) => {
     const html = `
     
     <div>
-        <img class="foto-pokemon btn" src="${pokemon.foto}" alt="Foto Pokemon">
-        
-        <ul>
-            <li class="pokemon-nombre">Nombre: ${pokemon.nombre}</li>
-            <li class="pokemon-tipo">Tipo: ${pokemon.tipo}</li>
-            <li class="pokemon-peso">Peso: ${pokemon.peso}</li>
-            <li class="pokemon-habilidades">Habilidades: ${pokemon.habilidades}</li>
-        </ul>
+        <img id= "img-${pokemon.id}" class="foto-pokemon btn" src="${pokemon.foto}" alt="Foto Pokemon">               
     </div>
     
     <div id="${pokemon.id}"></div>
@@ -104,6 +101,9 @@ const verPokemon = (pokemon) => {
     <ul>
         <li class="pokemon-nombre">Nombre: ${pokemon.nombre}</li>
         <li class="pokemon-tipo">Tipo: ${pokemon.tipo}</li>
+        <li class="pokemon-peso">Peso: ${pokemon.peso}</li>
+        <li class="pokemon-habilidades">Habilidades: ${pokemon.habilidades}</li>
+        <li class="pokemon-descripcion">Descripción: ${pokemon.descripcion}</li>
         <li class="pokemon-movimientos">Movimientos: ${pokemon.movimientos}</li>
     </ul>
     `
@@ -115,7 +115,7 @@ const verPokemon = (pokemon) => {
 
     
     
-    imgPokemon = document.querySelector('.foto-pokemon')
+    imgPokemon = document.getElementById(`img-${pokemon.id}`);
     
     imgPokemon.addEventListener('click', () => {
         const divInfo = document.getElementById(`${pokemon.id}`);
