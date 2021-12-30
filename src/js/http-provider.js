@@ -56,11 +56,24 @@ const fetchPokemon = async(id) => {
             return movimientos;               
         }  
         
-       /*  const obtenerDescripcion = () => {
+        const descId = () =>{
+            const getRandomInt = (min, max) => {
+                return Math.floor(Math.random() * (max - min)) + min;
+              }
+            
+              return getRandomInt(1, 31);            
+        }
 
-            const 
+        console.log(descId())
 
-        } */
+        const num = descId();
+
+        const res1  = await fetch(`https://pokeapi.co/api/v2/characteristic/${num}/`);
+        const data1 = await res1.json();
+
+        console.log(`data1: ${data1.descriptions[5].description}`);
+
+        
 
         let pokemon = {
             id         : data.id,
@@ -69,7 +82,7 @@ const fetchPokemon = async(id) => {
             tipo       : obtenerTipo(data),
             peso       : data.weight,
             habilidades: obtenerHabilidades(data),
-            /* descripcion: data., */
+            descripcion: data1.descriptions[5].description,
             movimientos: obtenerMovimientos(data)
         }
         
@@ -90,22 +103,29 @@ const verPokemon = (pokemon) => {
 
     const html = `
     
-    <div>
-        <img id= "img-${pokemon.id}" class="foto-pokemon btn" src="${pokemon.foto}" alt="Foto Pokemon">               
-    </div>
-    
-    <div id="${pokemon.id}"></div>
+        <div class="container">
+            <img id= "img-${pokemon.id}" class="foto-pokemon btn d-grid gap-2 col-4 mx-auto" src="${pokemon.foto}" alt="Foto Pokemon">               
+            
+            <div class="alert alert-primary">
+                <ul>
+                    <li class="pokemon-nombre">Nombre: ${pokemon.nombre}</li>
+                    <li class="pokemon-tipo">Tipo: ${pokemon.tipo}</li>
+                    <li class="pokemon-peso">Peso: ${pokemon.peso}</li>
+                    <li class="pokemon-habilidades">Habilidades: ${pokemon.habilidades}</li>
+                </ul>
+            </div>    
+        </div>
+        
+        <div id="${pokemon.id}"></div>
     `;
 
     const htmlInfo = `
-    <ul>
-        <li class="pokemon-nombre">Nombre: ${pokemon.nombre}</li>
-        <li class="pokemon-tipo">Tipo: ${pokemon.tipo}</li>
-        <li class="pokemon-peso">Peso: ${pokemon.peso}</li>
-        <li class="pokemon-habilidades">Habilidades: ${pokemon.habilidades}</li>
-        <li class="pokemon-descripcion">Descripción: ${pokemon.descripcion}</li>
-        <li class="pokemon-movimientos">Movimientos: ${pokemon.movimientos}</li>
-    </ul>
+    <div class="alert alert-primary">
+        <ul>
+            <li class="pokemon-descripcion">Descripción: ${pokemon.descripcion}</li>
+            <li class="pokemon-movimientos">Movimientos: ${pokemon.movimientos}</li>
+        </ul>
+    </div> 
     `
 
     const divPokemon = document.createElement('div');
@@ -120,12 +140,13 @@ const verPokemon = (pokemon) => {
     imgPokemon.addEventListener('click', () => {
         const divInfo = document.getElementById(`${pokemon.id}`);
         divInfo.innerHTML = htmlInfo;
+       
     })
 }
 
 const eventos = () => {
 
-    btnPokemon = document.querySelector('.btn-primary')
+    btnPokemon = document.querySelector('.btn-outline-primary')
     
     btnPokemon.addEventListener('click', () =>{
         fetchPokemon( pokemonId());
