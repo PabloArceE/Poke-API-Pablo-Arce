@@ -56,11 +56,11 @@ const fetchPokemon = async(id) => {
             return movimientos;               
         }  
         
-        const obtenerDescripcion = () => {
+       /*  const obtenerDescripcion = () => {
 
             const 
 
-        }
+        } */
 
         let pokemon = {
             id         : data.id,
