@@ -1,6 +1,13 @@
+import './style.css';
+
+
+
 document.addEventListener('DOMContentLoaded', () => {
     fetchPokemon(1)
+        
 })
+
+
 
 const fetchPokemon = async(id) => {
 
@@ -11,12 +18,34 @@ const fetchPokemon = async(id) => {
 
         console.log(data)
 
+        const obtenerTipo = (data) => {
+            
+            const tipos = []
+            
+            for(let tipo of data.types){
+                tipos.push(tipo.type.name)
+            }
+                        
+            return tipos                
+        }
+
+        const obtenerHabilidades = (data) => {
+            
+            const habilidades = []
+            
+            for(let habilidad of data.abilities){
+                habilidades.push(habilidad.ability.name)
+            }
+                        
+            return habilidades               
+        }        
+
         let pokemon = {
             foto       : data.sprites.other.dream_world.front_default,
             nombre     : data.name,
-            tipo       : data.types[0].type.name,
+            tipo       : obtenerTipo(data),
             peso       : data.weight,
-            habilidades: data.abilities[0].ability.name
+            habilidades: obtenerHabilidades(data)
         }
         
         verPokemon(pokemon)
